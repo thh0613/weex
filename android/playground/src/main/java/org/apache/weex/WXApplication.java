@@ -23,32 +23,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.util.Log;
-import com.alibaba.android.bindingx.plugin.weex.BindingX;
-import com.facebook.drawee.backends.pipeline.Fresco;
 
-import org.apache.weex.bridge.WXBridgeManager;
-import org.apache.weex.common.WXException;
-import org.apache.weex.performance.WXAnalyzerDataTransfer;
 import java.lang.reflect.Method;
-import org.apache.weex.commons.adapter.DefaultWebSocketAdapterFactory;
-import org.apache.weex.commons.adapter.ImageAdapter;
-import org.apache.weex.commons.adapter.JSExceptionAdapter;
-import org.apache.weex.commons.adapter.PicassoBasedDrawableLoader;
-import org.apache.weex.extend.adapter.ApmGenerator;
-import org.apache.weex.extend.adapter.DefaultAccessibilityRoleAdapter;
-import org.apache.weex.extend.adapter.DefaultConfigAdapter;
-import org.apache.weex.extend.adapter.InterceptWXHttpAdapter;
-import org.apache.weex.extend.adapter.WXAnalyzerDemoListener;
-import org.apache.weex.extend.component.WXComponentSyncTest;
-import org.apache.weex.extend.component.WXMask;
-import org.apache.weex.extend.component.WXParallax;
-import org.apache.weex.extend.module.GeolocationModule;
-import org.apache.weex.extend.module.MyModule;
-import org.apache.weex.extend.module.RenderModule;
-import org.apache.weex.extend.module.SyncTestModule;
-import org.apache.weex.extend.module.WXEventModule;
-import org.apache.weex.extend.module.WXTitleBar;
-import org.apache.weex.extend.module.WXWsonTestModule;
 
 public class WXApplication extends Application {
 
@@ -71,14 +47,9 @@ public class WXApplication extends Application {
 //    WXEnvironment.setApkDebugable(true);
 //    WXSDKEngine.addCustomOptions("appName", "WXSample");
 //    WXSDKEngine.addCustomOptions("appGroup", "WXApp");
-    InitConfig.Builder builder = new InitConfig.Builder()
+    InitConfig.Builder builder = new InitConfig.Builder();
         //.setImgAdapter(new FrescoImageAdapter())// use fresco adapter
-        .setImgAdapter(new ImageAdapter())
-        .setDrawableLoader(new PicassoBasedDrawableLoader(getApplicationContext()))
-        .setWebSocketAdapterFactory(new DefaultWebSocketAdapterFactory())
-        .setJSExceptionAdapter(new JSExceptionAdapter())
-        .setHttpAdapter(new InterceptWXHttpAdapter())
-        .setApmGenerater(new ApmGenerator());
+
 //    if(!TextUtils.isEmpty(BuildConfig.externalLibraryName)){
 //      builder.addNativeLibrary(BuildConfig.externalLibraryName);
 //    }
@@ -109,38 +80,7 @@ public class WXApplication extends Application {
 
 
 
-    WXSDKManager.getInstance().setAccessibilityRoleAdapter(new DefaultAccessibilityRoleAdapter());
 
-    try {
-      Fresco.initialize(this);
-      WXSDKEngine.registerComponent("synccomponent", WXComponentSyncTest.class);
-      WXSDKEngine.registerComponent(WXParallax.PARALLAX, WXParallax.class);
-
-      WXSDKEngine.registerModule("render", RenderModule.class);
-      WXSDKEngine.registerModule("event", WXEventModule.class);
-      WXSDKEngine.registerModule("syncTest", SyncTestModule.class);
-
-      WXSDKEngine.registerComponent("mask",WXMask.class);
-      WXSDKEngine.registerModule("myModule", MyModule.class);
-      WXSDKEngine.registerModule("geolocation", GeolocationModule.class);
-
-      WXSDKEngine.registerModule("titleBar", WXTitleBar.class);
-
-      WXSDKEngine.registerModule("wsonTest", WXWsonTestModule.class);
-
-      /**
-       * override default image tag
-       * WXSDKEngine.registerComponent("image", FrescoImageComponent.class);
-       */
-
-      //Typeface nativeFont = Typeface.createFromAsset(getAssets(), "font/native_font.ttf");
-      //WXEnvironment.setGlobalFontFamily("bolezhusun", nativeFont);
-
-//      startHeron();
-
-    } catch(WXException e)  {
-
-    }
 
 //    BindingX.register();
 
