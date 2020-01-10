@@ -19,7 +19,7 @@
 def jsc_dir = new File(project.buildDir, 'jsc')
 //http://10.228.141.28:8093/SdkPackages/jsc-android-241213.1.0.tgz
 //https://registry.npmjs.org/jsc-android/-/jsc-android-241213.1.0.tgz
-def jsc_url = project.hasProperty('jsc_url') ? new URL(project.getProperty('jsc_url').toString()) : new URL('http://10.228.141.28:8093/SdkPackages/jsc-android-241213.1.0.tgz')
+def jsc_url = project.hasProperty('jsc_url') ? new URL(project.getProperty('jsc_url').toString()) : new URL('https://registry.npmjs.org/jsc-android/-/jsc-android-241213.1.0.tgz')
 def aar_name = project.hasProperty('aar_name') ? project.getProperty('aar_name').toString() : 'android-jsc'
 
 def jsc_file = new File(jsc_dir, jsc_url.path.split('/').last())
@@ -83,6 +83,11 @@ task copyJscToJniDir(type: Copy, dependsOn: unzipJSC) {
         def path_list = new LinkedList<>(it.relativePath.segments.toList())
         path_list.removeAt(0)
         it.relativePath = new RelativePath(true, path_list[0], path_list[1])
+        if (path_list[0].contains("armeabi-v7a")) {
+            it.relativePath = new RelativePath(true, "armeabi", path_list[1])
+        } else {
+            it.relativePath = new RelativePath(true, path_list[0], path_list[1])
+        }
     }
     inputs.file(aar_file)
     outputs.upToDateWhen { false }
