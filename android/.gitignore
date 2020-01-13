@@ -3,6 +3,7 @@
 local.properties
 *iml
 playground/src/main/jniLibs
+playground/.externalNativeBuild
 build
 captures
 .settings

@@ -146,7 +146,7 @@ android {
         versionName project.version
         externalNativeBuild {
             cmake {
-                abiFilters "armeabi", "armeabi-v7a"
+                abiFilters "armeabi"
                 arguments '-DANDROID_PLATFORM=' + "${api_level}",
                         '-DANDROID_TOOLCHAIN=' + "${compile_tool}",
                         '-DANDROID_STL=' + "${cxx_stl}",
